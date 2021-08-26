@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const app = express();
-const port =process.env.port|| 80;
+const port =process.env.PORT|| 3000;
 const path = require('path');
 var nodemailer=require('nodemailer');
 // var bodyParser=require('body-parser')
