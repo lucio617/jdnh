@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const app = express();
-const port = 80;
+const port =process.env.port|| 80;
 const path = require('path');
 var nodemailer=require('nodemailer');
 // var bodyParser=require('body-parser')
@@ -37,6 +37,7 @@ app.set('css', path.join(__dirname, 'css'))
 
 // var feedback = mongoose.model('feedback', feedbackSchema);
 
+//routes
 app.get("/", (req, res) => {
     const con = "This is the best content ";
     const params = { 'title': 'PubG is the best game', 'content': con }
