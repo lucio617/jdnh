@@ -39,10 +39,10 @@ app.set('css', path.join(__dirname, 'css'))
 
 //routes
 app.get("/", (req, res) => {
-    const con = "This is the best content ";
-    const params = { 'title': 'PubG is the best game', 'content': con }
-    res.sendFile(__dirname + '/home.html', params);
-    // res.send("First get express app");
+   // const con = "This is the best content ";
+   // const params = { 'title': 'PubG is the best game', 'content': con }
+   // res.sendFile(__dirname + '/home.html', params);
+     res.send("First get express app");
 });
 
 
@@ -84,6 +84,10 @@ app.post("/",(req, res) => {
     // })
 })
 
+//Heroku Check
+if(process.env.NODE_EN=="production"){
+
+}
 
 app.listen(port, () => {
     console.log('Application started');
