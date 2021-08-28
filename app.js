@@ -38,12 +38,15 @@ app.set('css', path.join(__dirname, 'css'))
 // var feedback = mongoose.model('feedback', feedbackSchema);
 
 //routes
+
+const res = await fetch('https://jdnh-hp.netlify.app/')
 app.get("/", (req, res) => {
    // const con = "This is the best content ";
    // const params = { 'title': 'PubG is the best game', 'content': con }
    // res.sendFile(__dirname + '/home.html', params);
      res.send("First get express app");
 });
+
 
 
 app.post("/",(req, res) => {
