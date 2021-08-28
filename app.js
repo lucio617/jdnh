@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const app = express();
-const port =process.env.PORT|| 3000;
+const port =process.env.PORT|| 80;
 const path = require('path');
 var nodemailer=require('nodemailer');
 var fetch=require('node-fetch');
@@ -44,8 +44,8 @@ const res = fetch('https://jdnh-hp.netlify.app/')
 app.get("/", (req, res) => {
    // const con = "This is the best content ";
    // const params = { 'title': 'PubG is the best game', 'content': con }
-    res.sendFile(__dirname + '/home.html', params);
-     res.send("First get express app");
+     res.sendFile(__dirname + '/home.html');
+    //  res.send("First get express app");
 });
 
 
