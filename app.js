@@ -4,7 +4,7 @@ const app = express();
 const port =process.env.PORT|| 80;
 const path = require('path');
 var nodemailer=require('nodemailer');
-var fetch=require('node-fetch');
+
 // var bodyParser=require('body-parser')
 // var urlencodedParser=bodyParser.urlencoded({extended : false});
 // const mongoose = require('mongoose');
@@ -19,8 +19,12 @@ app.use('/images', express.static('images'));
 app.use('/img', express.static('img'));
 app.use('/js', express.static('js'));
 app.use('/ultrasound', express.static('ultrasound'));
-app.use('/operation theatre', express.static('operation theatre'));
-app.use('/indoor', express.static('indoor'));
+app.use('/operation theatre', express.static(path.join(__dirname + '/operation theatre')));
+app.use('/Medilab', express.static(path.join(__dirname + '/Medilab')));
+app.use('/x-ray', express.static(path.join(__dirname + '/x-ray')));
+app.use('/ot', express.static(path.join(__dirname + '/ot')));
+app.use('/opd', express.static(path.join(__dirname + '/opd')));
+
 // app.use(express.urlencoded());
 app.use(express.urlencoded({
     extended: true
@@ -40,7 +44,7 @@ app.set('css', path.join(__dirname, 'css'))
 
 //routes
 
-const res = fetch('https://jdnh-hp.netlify.app/')
+
 app.get("/", (req, res) => {
    // const con = "This is the best content ";
    // const params = { 'title': 'PubG is the best game', 'content': con }
@@ -88,10 +92,7 @@ app.post("/",(req, res) => {
     // })
 })
 
-//Heroku Check
-if(process.env.NODE_EN=="production"){
 
-}
 
 app.listen(port, () => {
     console.log('Application started');
