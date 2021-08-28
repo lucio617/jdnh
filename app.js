@@ -4,6 +4,7 @@ const app = express();
 const port =process.env.PORT|| 3000;
 const path = require('path');
 var nodemailer=require('nodemailer');
+var fetch=require('node-fetch');
 // var bodyParser=require('body-parser')
 // var urlencodedParser=bodyParser.urlencoded({extended : false});
 // const mongoose = require('mongoose');
@@ -39,7 +40,7 @@ app.set('css', path.join(__dirname, 'css'))
 
 //routes
 
-const res = await fetch('https://jdnh-hp.netlify.app/')
+const res = fetch('https://jdnh-hp.netlify.app/')
 app.get("/", (req, res) => {
    // const con = "This is the best content ";
    // const params = { 'title': 'PubG is the best game', 'content': con }
