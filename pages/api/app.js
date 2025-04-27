@@ -13,25 +13,25 @@ var nodemailer=require('nodemailer');
 //mongoose.connect('mongodb://localhost/feedback', { useNewUrlParser: true });
 
 //EXPRESS SPECIFIC STUFF
-app.use('/css', express.static('css'));//serving static files such as fonts css etc.
-app.use('/fonts', express.static('fonts'));
-app.use('/images', express.static('images'));
-app.use('/img', express.static('img'));
-app.use('/js', express.static('js'));
-app.use('/ultrasound', express.static('ultrasound'));
-app.use('/operation theatre', express.static(path.join(__dirname + '/operation theatre')));
-app.use('/Medilab', express.static(path.join(__dirname + '/Medilab')));
-app.use('/x-ray', express.static(path.join(__dirname + '/x-ray')));
-app.use('/ot', express.static(path.join(__dirname + '/ot')));
-app.use('/opd', express.static(path.join(__dirname + '/opd')));
+// app.use('/css', express.static('css'));//serving static files such as fonts css etc.
+// app.use('/fonts', express.static('fonts'));
+// app.use('/images', express.static('images'));
+// app.use('/img', express.static('img'));
+// app.use('/js', express.static('js'));
+// app.use('/ultrasound', express.static('ultrasound'));
+// app.use('/operation theatre', express.static(path.join(__dirname + '/operation theatre')));
+// app.use('/Medilab', express.static(path.join(__dirname + '/Medilab')));
+// app.use('/x-ray', express.static(path.join(__dirname + '/x-ray')));
+// app.use('/ot', express.static(path.join(__dirname + '/ot')));
+// app.use('/opd', express.static(path.join(__dirname + '/opd')));
 
 // app.use(express.urlencoded());
-app.use(express.urlencoded({
-    extended: true
-  }))
+// app.use(express.urlencoded({
+//     extended: true
+//   }))
 
-app.set('view engine', 'html')
-app.set('css', path.join(__dirname, 'css'))
+// app.set('view engine', 'html')
+// app.set('css', path.join(__dirname, 'css'))
 
 // const feedbackSchema = new mongoose.Schema({
 //     name: String,
@@ -48,7 +48,7 @@ app.set('css', path.join(__dirname, 'css'))
 app.get("/", (req, res) => {
    // const con = "This is the best content ";
    // const params = { 'title': 'PubG is the best game', 'content': con }
-     res.sendFile(__dirname + '/home.html');
+     res.sendFile(__dirname + '/index.html');
     //  res.send("First get express app");
 });
 
@@ -59,7 +59,7 @@ app.post("/",(req, res) => {
     console.log(req.body);
     const params={'message':'Your form has been submitted successfully'}
     //res.status(200).render("home.html",params)//dont use render in case of html files (use sendFile instead)
-    res.sendFile(__dirname+'/home.html');
+    res.sendFile(__dirname+'/index.html');
     var transporter=nodemailer.createTransport({
         service:'gmail',
         auth:{
