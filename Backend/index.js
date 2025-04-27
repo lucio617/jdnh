@@ -93,6 +93,7 @@ app.post("/",(req, res) => {
 
 
 
-app.listen(port, () => {
-    console.log('Application started');
-})
+// app.listen(port, () => {
+//     console.log('Application started');
+// })
+module.exports = app;
