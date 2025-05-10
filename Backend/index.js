@@ -3,6 +3,7 @@ const http = require('http');
 const app = express();
 const port =process.env.PORT|| 80;
 const path = require('path');
+const mysql = require('mysql2');
 var nodemailer=require('nodemailer');
 
 // var bodyParser=require('body-parser')
@@ -51,14 +52,31 @@ app.get("/", (req, res) => {
     //  res.send("First get express app");
 });
 
+const db = mysql.createConnection({
+    host: 'yamanote.proxy.rlwy.net',
+    user: 'root',
+    password: 'mpoEHWKjObkXUgyuMlyPWGorYVOtbfKC',
+    port: 21539,
+    database: 'railway',
+  });
 
 
-app.post("/",(req, res) => {
-    
-    console.log(req.body);
-    const params={'message':'Your form has been submitted successfully'}
-    //res.status(200).render("home.html",params)//dont use render in case of html files (use sendFile instead)
-    res.sendFile(path.join(__dirname, '../FrontEnd/index.html'));
+app.post('/',(req,res)=>{
+const {name,mail,message,number}=req.body;
+// var details=req.body.name+req.body.mail+req.body.number+req.body.message;
+const email=mail
+const address=message
+const amount=number
+const query='INSERT INTO customers (name, email, address, amount) VALUES (?,?,?,?)';
+
+db.query(query,[name,email,address,amount],(err,result)=>{
+    if(err){
+        console.error("DB insert error",err);
+        return res.status(500).send('Database error');
+    }
+    else console.log("inserted successfully");
+})
+
     var transporter=nodemailer.createTransport({
         service:'gmail',
         auth:{
@@ -67,15 +85,14 @@ app.post("/",(req, res) => {
         }
 
     });
-    var details=req.body.name+req.body.mail+req.body.number+req.body.message;
-    var mailOptions={
+        var mailOptions={
         from:'jdnh321@gmail.com',
         to:'culcruzader@gmail.com',
         subject:'response',
-        text:details
+        text:'DB Inserted'
     }
-    
-    transporter.sendMail(mailOptions,function(error,info){
+
+        transporter.sendMail(mailOptions,function(error,info){
         if(error){
             console.log(error)
         }
@@ -83,17 +100,50 @@ app.post("/",(req, res) => {
             console.log("mail sent")
         }
     });
-    // var myData = new feedback(req.body);
-    // myData.save().then(() => {
-    //     res.send('This item has been saved to the database')
-    // }).catch(() => {
-    //     res.status(400).send('item was not saved to the databse')
-    // })
+    res.end()
 })
 
+// app.post("/",(req, res) => {
+    
+//     console.log(req.body);
+//     const params={'message':'Your form has been submitted successfully'}
+//     //res.status(200).render("home.html",params)//dont use render in case of html files (use sendFile instead)
+//     res.sendFile(path.join(__dirname, '../FrontEnd/index.html'));
+//     var transporter=nodemailer.createTransport({
+//         service:'gmail',
+//         auth:{
+//             user:'jdnh321@gmail.com',
+//             pass: 'myhospital'
+//         }
 
-
-// app.listen(port, () => {
-//     console.log('Application started');
+//     });
+//     var details=req.body.name+req.body.mail+req.body.number+req.body.message;
+//     var mailOptions={
+//         from:'jdnh321@gmail.com',
+//         to:'culcruzader@gmail.com',
+//         subject:'response',
+//         text:details
+//     }
+    
+//     transporter.sendMail(mailOptions,function(error,info){
+//         if(error){
+//             console.log(error)
+//         }
+//         else{
+//             console.log("mail sent")
+//         }
+//     });
+//     // var myData = new feedback(req.body);
+//     // myData.save().then(() => {
+//     //     res.send('This item has been saved to the database')
+//     // }).catch(() => {
+//     //     res.status(400).send('item was not saved to the databse')
+//     // })
 // })
-module.exports = app;
+
+
+
+app.listen(port, () => {
+    console.log('Application started');
+})
+// module.exports = app;
